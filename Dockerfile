@@ -14,6 +14,9 @@ RUN yum -y install python-setuptools \
 # Install Apache
 RUN yum -y install httpd
 
+#Install Nano
+RUN yum -y install nano
+
 # Install Remi Updated PHP 7
 RUN wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm \
 && rpm -Uvh remi-release-7.rpm \
@@ -21,7 +24,7 @@ RUN wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm \
 && yum -y install php php-devel php-gd php-pdo php-soap php-xmlrpc php-xml php-phpunit-PHPUnit
 
 # Reconfigure Apache
-RUN a2enmod rewrite
+RUN sed -i 's@^#LoadModule rewrite_module modules/mod_rewrite\.so@LoadModule rewrite_module modules/mod_rewrite.so@' /etc/apache2/httpd.conf
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
 
 # Install phpMyAdmin
