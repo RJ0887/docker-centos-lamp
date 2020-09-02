@@ -21,6 +21,7 @@ RUN wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm \
 && yum -y install php php-devel php-gd php-pdo php-soap php-xmlrpc php-xml php-phpunit-PHPUnit
 
 # Reconfigure Apache
+RUN a2enmod rewrite
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
 
 # Install phpMyAdmin
